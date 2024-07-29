@@ -39,7 +39,7 @@ func _process(delta):
 		current_speed -= deceleration_rate * delta
 		current_speed = max(0, current_speed)  # Ensure speed does not go negative
 	elif previous_elapsed_time < total_time:
-		# The first time the timer runs outt, stop the wheel 
+		# The first time the timer runs outt, stop the wheel
 		stop_spin()
 		previous_elapsed_time = elapsed_time
 

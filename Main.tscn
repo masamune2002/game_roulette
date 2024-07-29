@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://vt0xpit7op4k"]
+[gd_scene load_steps=7 format=3 uid="uid://vt0xpit7op4k"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_gw2g3"]
 [ext_resource type="PackedScene" uid="uid://b57v4sqra64eh" path="res://Wheel.tscn" id="1_q8r8g"]
 [ext_resource type="PackedScene" uid="uid://dwbs76452aiiw" path="res://Settings.tscn" id="3_ep6r6"]
+[ext_resource type="AudioStream" uid="uid://bwy33nt402jvf" path="res://Assets/Sounds/ThisIsHalloween.wav" id="4_5kpl6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pjcnh"]
 bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.231373)
@@ -29,6 +30,7 @@ color = Color(0, 0, 0, 1)
 
 [node name="Wheel" parent="." instance=ExtResource("1_q8r8g")]
 layout_mode = 1
+total_time = 10.5
 
 [node name="Results_Screen" type="Control" parent="."]
 visible = false
@@ -103,6 +105,10 @@ grow_vertical = 0
 layout_mode = 1
 offset_right = 60.0
 offset_bottom = 60.0
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_5kpl6")
+volume_db = 1.874
 
 [connection signal="show_result" from="Wheel" to="." method="_on_wheel_show_result"]
 [connection signal="pressed" from="Foreground/SettingsLayout/SettingsButton" to="." method="_on_settings_button_pressed"]

@@ -3,6 +3,11 @@ extends Control
 @onready var wheel = $Wheel
 @onready var results_screen = $Results_Screen
 
+var songs = [{
+	'filename': 'ThisIsHalloween.wav',
+	'stopAt': 10.5
+}]
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
@@ -11,10 +16,11 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		var mouse_pos = event.position
-		var circle_center = Vector2(size.x / 2, size.y / 2)
+		var circle_center = Vector2(wheel.size.x / 2, wheel.size.y / 2)
 		var radius = min(wheel.size.x, wheel.size.y) / 2
 		if circle_center.distance_to(mouse_pos) <= radius:
 			wheel.start_spin()
+			$AudioPlayer.play()
 		else:
 			wheel.stop_spin()
 
