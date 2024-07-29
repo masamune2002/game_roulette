@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://vt0xpit7op4k"]
+[gd_scene load_steps=6 format=3 uid="uid://vt0xpit7op4k"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_gw2g3"]
 [ext_resource type="PackedScene" uid="uid://b57v4sqra64eh" path="res://Wheel.tscn" id="1_q8r8g"]
 [ext_resource type="PackedScene" uid="uid://dwbs76452aiiw" path="res://Settings.tscn" id="3_ep6r6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pjcnh"]
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.231373)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mpbm3"]
 
@@ -26,6 +29,39 @@ color = Color(0, 0, 0, 1)
 
 [node name="Wheel" parent="." instance=ExtResource("1_q8r8g")]
 layout_mode = 1
+
+[node name="Results_Screen" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Results_Screen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pjcnh")
+
+[node name="Label" type="Label" parent="Results_Screen/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.5
+offset_top = -16.5
+offset_right = 45.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Result"
 
 [node name="Foreground" type="Control" parent="."]
 visible = false
@@ -67,14 +103,6 @@ grow_vertical = 0
 layout_mode = 1
 offset_right = 60.0
 offset_bottom = 60.0
-
-[node name="Results_Screen" type="Control" parent="Foreground"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [connection signal="show_result" from="Wheel" to="." method="_on_wheel_show_result"]
 [connection signal="pressed" from="Foreground/SettingsLayout/SettingsButton" to="." method="_on_settings_button_pressed"]

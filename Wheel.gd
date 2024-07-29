@@ -5,10 +5,12 @@ var num_wedges: int = 1
 @export var starting_speed: float = 800.0  # Starting speed in degrees per second
 
 var elapsed_time: float = 0.0
+var previous_elapsed_time : float = 0.0
 
 var current_speed : float = 0.0
 var deceleration_rate: float
-var wedge_labels: Array[String] = ["Alex", "Allison", "Thad", "Ravi", "Liz", "Anuja", "Matthew", "Tyler"]
+const wedge_labels: Array[String] = ["Alex", "Allison", "Thad", "Ravi", "Liz", "Anuja", "Matthew", "Tyler"]
+const colors: Array[Color] = [Color.BLACK, Color.ORANGE]
 
 var spinning : bool = false
 
@@ -30,17 +32,16 @@ func _process(delta):
 	self.pivot_offset = Vector2(size.x / 2, size.y / 2)
 
 	if elapsed_time < total_time:
-		# Update rotation
+		# The wheel is rotating
 		self.rotation_degrees += current_speed * delta
-
-		# Update elapsed time
+		previous_elapsed_time = elapsed_time
 		elapsed_time += delta
-
-		# Decelerate the rotation speed
 		current_speed -= deceleration_rate * delta
 		current_speed = max(0, current_speed)  # Ensure speed does not go negative
-	else:
-		_stop_spin()
+	elif previous_elapsed_time < total_time:
+		# The first time the timer runs outt, stop the wheel 
+		stop_spin()
+		previous_elapsed_time = elapsed_time
 
 # Function to draw the circle with wedges
 func _draw():
@@ -60,30 +61,19 @@ func _draw():
 			points.append(center + Vector2(cos(angle), sin(angle)) * radius)
 
 		# Define a color for the wedge (alternating colors as an example)
-		var wedge_color = Color(1, 0, 0) if i % 2 == 0 else Color(0, 1, 0)
+		var wedge_color = colors[i % colors.size()]
 
 		# Draw the wedge
 		draw_polygon(points, [wedge_color])
 
-# Handle input events
-func _input(event):
-	if event is InputEventMouseButton and event.pressed:
-		var mouse_pos = event.position
-		var circle_center = Vector2(size.x / 2, size.y / 2)
-		var radius = min(size.x, size.y) / 2
-		if circle_center.distance_to(mouse_pos) <= radius:
-			_start_spin()
-		else:
-			_stop_spin()
-			show_result.emit("Result!")
-
-func _start_spin():
+func start_spin():
 	current_speed = starting_speed
 	elapsed_time = 0.0
 	queue_redraw()
 
-func _stop_spin():
+func stop_spin():
 	current_speed = 0
+	show_result.emit("result")
 	queue_redraw()
 
 # Function to add labels to the wedges
@@ -105,16 +95,12 @@ func add_labels_to_wedges():
 		var label = Label.new()
 		label.text = wedge_labels[i % wedge_labels.size()]
 
-		# Set the size of the label
-		label.set_size(Vector2(100, 30))
-
 		# Position the label
 		label.set_position(label_pos)
 
 		# Rotate the label to align with the wedge
 		label.set_rotation_degrees(rad_to_deg(angle))
 
-		label.add_theme_color_override("font_color", Color(1, 1, 1))  # Set text color
 		add_child(label)
 
 func _on_resized():
