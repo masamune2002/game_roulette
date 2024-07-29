@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdni826il1pxf"]
+
+[ext_resource type="Script" path="res://AudioPlayer.gd" id="1_ol7x5"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_sm2xg"]
+
+[node name="AudioPlayer" type="Node"]
+script = ExtResource("1_ol7x5")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_sm2xg")

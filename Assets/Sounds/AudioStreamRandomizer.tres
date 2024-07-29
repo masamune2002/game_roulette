@@ -1,0 +1,9 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=2 format=3 uid="uid://bpqfsy7upqepo"]
+
+[ext_resource type="AudioStream" uid="uid://bwy33nt402jvf" path="res://Assets/Sounds/ThisIsHalloween.wav" id="1_0smn4"]
+
+[resource]
+playback_mode = 1
+streams_count = 1
+stream_0/stream = ExtResource("1_0smn4")
+stream_0/weight = 1.0

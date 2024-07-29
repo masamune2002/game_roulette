@@ -2,15 +2,24 @@ extends Control
 
 @onready var wheel = $Wheel
 @onready var results_screen = $Results_Screen
+@onready var audio_player = $AudioStreamPlayer
 
-var songs = [{
-	'filename': 'ThisIsHalloween.wav',
-	'stopAt': 10.5
+var songs : Array[Dictionary] = [{
+	'stream': preload("res://Assets/Sounds/ThisIsHalloween.wav"),
+	'stop_at': 10.5
 }]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+	
+func _pick_random_song(songs: Array[Dictionary]):
+	if songs == null or songs.size() == 0:
+		return null
+		
+	var randomIndex = randi_range(0, songs.size() - 1)
+	return songs[randomIndex]
+	
 
 # Handle input events
 func _input(event):
@@ -19,14 +28,15 @@ func _input(event):
 		var circle_center = Vector2(wheel.size.x / 2, wheel.size.y / 2)
 		var radius = min(wheel.size.x, wheel.size.y) / 2
 		if circle_center.distance_to(mouse_pos) <= radius:
-			wheel.start_spin()
-			$AudioPlayer.play()
+			var song = _pick_random_song(songs)
+			wheel.start_spin(song.stop_at)
+			audio_player.stream = song.stream
+			audio_player.play()
 		else:
 			wheel.stop_spin()
 
 func _on_settings_button_pressed():
 	$Foreground/Settings_Screen.visible = !$Foreground/Settings_Screen.visible
-
 
 func _on_wheel_show_result(result):
 	results_screen.visible = true

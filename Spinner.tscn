@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://csisx0si6kwx4"]
+
+[ext_resource type="Script" path="res://Spinner.gd" id="1_jh6qk"]
+
+[node name="Spinner" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_jh6qk")
