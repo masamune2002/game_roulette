@@ -1,5 +1,6 @@
 extends Control
 
+var triangle_color = Color.BLUE_VIOLET
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -10,8 +11,9 @@ func _ready():
 func _process(delta):
 	pass
 
-func draw(radius, center, num_wedges):
+func draw(num_wedges, radius):
 	var wedge_angle = 2 * PI / num_wedges
+	var center = Vector2(radius, radius)
 
 	# Draw the small triangle at the left-most point of the wheel
 	var triangle_radius = radius * 0.1  # Radius of the triangle

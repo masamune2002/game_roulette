@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Main.gd" id="1_gw2g3"]
 [ext_resource type="PackedScene" uid="uid://b57v4sqra64eh" path="res://Wheel.tscn" id="1_q8r8g"]
-[ext_resource type="AudioStream" uid="uid://bpqfsy7upqepo" path="res://Assets/Sounds/AudioStreamRandomizer.tres" id="4_c4cfs"]
+[ext_resource type="AudioStream" path="res://Assets/Sounds/AudioStreamRandomizer.tres" id="4_c4cfs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pjcnh"]
 bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.231373)

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://b57v4sqra64eh"]
 
 [ext_resource type="Script" path="res://Wheel.gd" id="1_dblmu"]
-[ext_resource type="PackedScene" uid="uid://csisx0si6kwx4" path="res://Spinner.tscn" id="2_qkg1c"]
-[ext_resource type="PackedScene" uid="uid://bnr24h7cwkvjo" path="res://Indicator.tscn" id="3_dr1u5"]
+[ext_resource type="PackedScene" uid="uid://dww4as5qnefqx" path="res://Spinner.tscn" id="2_qkg1c"]
+[ext_resource type="PackedScene" uid="uid://c03buwk2w284u" path="res://Indicator.tscn" id="3_dr1u5"]
 
 [node name="Wheel" type="Control"]
 layout_mode = 3
@@ -15,12 +15,6 @@ script = ExtResource("1_dblmu")
 
 [node name="Spinner" parent="." instance=ExtResource("2_qkg1c")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-starting_speed = null
 
 [node name="Indicator" parent="." instance=ExtResource("3_dr1u5")]
 layout_mode = 1

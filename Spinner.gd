@@ -4,10 +4,11 @@ extends Control
 
 var elapsed_time: float = 0.0
 var previous_elapsed_time : float = 0.0
+var spin_seconds : float = 0.0
 
 var current_speed : float = 0.0
 var deceleration_rate: float
-const wedge_labels: Array[String] = ["Alex", "Allison", "Thad", "Ravi", "Liz", "Anuja", "Matthew", "Tyler"]
+var wedge_labels: Array[String]
 var triangle_color = Color(1, 1, 0)
 const colors: Array[Color] = [Color.BLACK, Color.ORANGE]
 
@@ -20,15 +21,18 @@ func _ready():
 	set_process(true)  # Ensure _process is called
 	set_process_input(true)  # Ensure _input is called
 	queue_redraw()  # Request a redraw to draw the circle
-	num_wedges = wedge_labels.size()
-	deceleration_rate = starting_speed / spin_seconds
 
-	add_labels_to_wedges()
+func update(wedge_labels):
+	self.wedge_labels = wedge_labels
+	queue_redraw()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Set the pivot point to the center
 	self.pivot_offset = Vector2(size.x / 2, size.y / 2)
+
+	if spin_seconds > 0.0:
+		deceleration_rate = starting_speed / spin_seconds
 
 	if elapsed_time < spin_seconds:
 		# The wheel is rotating
@@ -42,9 +46,10 @@ func _process(delta):
 		stop_spin()
 		previous_elapsed_time = elapsed_time
 
-func draw():
+func _draw():
 	var radius = min(size.x, size.y) / 2
 	var center = Vector2(size.x / 2, size.y / 2)
+	var num_wedges = wedge_labels.size()
 	var wedge_angle = 2 * PI / num_wedges
 
 	for i in range(num_wedges):
@@ -63,6 +68,7 @@ func draw():
 
 		# Draw the wedge
 		draw_polygon(points, [wedge_color])
+		add_labels_to_wedges(wedge_labels)
 
 func start_spin(spin_seconds : float):
 	self.spin_seconds = spin_seconds
@@ -76,7 +82,7 @@ func stop_spin():
 	queue_redraw()
 
 # Function to add labels to the wedges
-func add_labels_to_wedges():
+func add_labels_to_wedges(wedge_labels):
 
 	for child in get_children():
 		if child is Label:
@@ -85,6 +91,7 @@ func add_labels_to_wedges():
 
 	var radius = min(size.x, size.y) / 2
 	var center = Vector2(size.x / 2, size.y / 2)
+	var num_wedges = wedge_labels.size()
 	var wedge_angle = 2 * PI / num_wedges
 
 	for i in range(num_wedges):
@@ -104,5 +111,4 @@ func add_labels_to_wedges():
 
 func _on_resized():
 	queue_redraw()
-	add_labels_to_wedges()
 
